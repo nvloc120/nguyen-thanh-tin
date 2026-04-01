@@ -1,0 +1,498 @@
+DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trường THPT Trường Chinh - Trang web trường học</title>
+    <style>
+      /* Reset và thiết lập cơ bản */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        overflow-x: hidden;
+      }
+
+      /* Header và Navigation */
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 2rem;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .nav-menu a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-menu a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Banner Trang chủ */
+      .banner {
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23667eea" width="1200" height="600"/><text x="50%" y="50%" font-family="Arial" font-size="48" fill="white" text-anchor="middle" dy=".3em"></text></svg>');
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        margin-top: 80px;
+      }
+
+      .banner h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: fadeInUp 1s ease;
+      }
+
+      .banner p {
+        font-size: 1.3rem;
+        max-width: 600px;
+        margin-bottom: 2rem;
+        animation: fadeInUp 1s ease 0.2s both;
+      }
+
+      .cta-button {
+        background: #ff6b6b;
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .cta-button:hover {
+        background: #ff5252;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+      }
+
+      /* Container chính */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      section {
+        padding: 4rem 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      section:last-child {
+        border-bottom: none;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: #667eea;
+      }
+
+      /* Giới thiệu */
+      .intro-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .intro-text p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-10px);
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      /* Hoạt động */
+      .activities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .activity-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .activity-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .activity-image {
+        height: 250px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: white;
+      }
+
+      .activity-content {
+        padding: 2rem;
+      }
+
+      .activity-content h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+      }
+
+      /* Tin tức */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .news-item {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .news-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .news-date {
+        color: #667eea;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      /* Liên hệ */
+      .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: #f8f9ff;
+        border-radius: 15px;
+        transition: background 0.3s ease;
+      }
+
+      .contact-item:hover {
+        background: #e8ecff;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+      }
+
+      /* Footer */
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 3rem 2rem;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .banner h1 {
+          font-size: 2.5rem;
+        }
+
+        .intro-content,
+        .contact-content {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .container {
+          padding: 2rem 1rem;
+        }
+
+        h2 {
+          font-size: 2rem;
+        }
+      }
+
+      /* Smooth scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <div class="logo">🏫 THPT Trường Chinh</div>
+        <ul class="nav-menu">
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#intro">Giới thiệu</a></li>
+          <li><a href="#activities">Hoạt động</a></li>
+          <li><a href="#news">Tin tức</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Banner -->
+    <section id="home" class="banner">
+      <h1>TRƯỜNG THPT Trường Chinh</h1>
+      <p>
+        Ngôi trường nơi ươm mầm những ước mơ, kiến tạo tương lai. Với hơn 17 năm
+        phát triển, chúng tôi tự hào là ngôi trường hàng đầu về chất lượng giáo
+        dục.
+      </p>
+      <a href="#intro" class="cta-button">Khám phá thêm</a>
+    </section>
+
+    <!-- Giới thiệu -->
+    <section id="intro" class="container">
+      <h2>Giới thiệu về trường</h2>
+      <div class="intro-content">
+        <div class="intro-text">
+          <p>
+            Trường THPT Trường Chinh được thành lập năm 2008 với sứ mệnh mang
+            đến nền giáo dục chất lượng cao cho thế hệ trẻ. Với đội ngũ giáo
+            viên giàu kinh nghiệm và cơ sở vật chất hiện đại, trường đã đạt được
+            nhiều thành tựu đáng tự hào.
+          </p>
+          <p>
+            Chúng tôi luôn chú trọng phát triển toàn diện cho học sinh thông qua
+            các chương trình học thuật, hoạt động ngoại khóa và kỹ năng sống.
+          </p>
+        </div>
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div>Tỷ lệ đỗ ĐH</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">25+</div>
+            <div>Năm thành lập</div>
+            2008
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1200+</div>
+            <div>Học sinh</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hoạt động -->
+    <section id="activities" class="container">
+      <h2>Hoạt động nổi bật</h2>
+      <div class="activities-grid">
+        <div class="activity-card">
+          <div class="activity-image">🎓</div>
+          <div class="activity-content">
+            <h3>Ngày hội STEM</h3>
+            <p>
+              Các em học sinh tham gia các hoạt động thực hành khoa học, công
+              nghệ với sự hướng dẫn của các thầy cô giàu kinh nghiệm.
+            </p>
+          </div>
+        </div>
+        <div class="activity-card">
+          <div class="activity-image">⚽</div>
+          <div class="activity-content">
+            <h3>Giải bóng đá học sinh</h3>
+            <p>
+              Giải đấu bóng đá thường niên thu hút đông đảo học sinh tham gia,
+              rèn luyện sức khỏe và tinh thần đồng đội.
+            </p>
+          </div>
+        </div>
+        <div class="activity-card">
+          <div class="activity-image">🎨</div>
+          <div class="activity-content">
+            <h3>Triển lãm tranh</h3>
+            <p>
+              Triển lãm các tác phẩm mỹ thuật do chính các em học sinh sáng tác,
+              thể hiện tài năng nghệ thuật.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tin tức -->
+    <section id="news" class="container">
+      <h2>Tin tức mới nhất</h2>
+      <div class="news-grid">
+        <div class="news-item">
+          <div class="news-date">15/12/2024</div>
+          <h3>Kế hoạch thi học kỳ I</h3>
+          <p>
+            Thông báo lịch thi học kỳ II năm học 2025-2026. Các em học sinh lưu
+            ý chuẩn bị đầy đủ...
+          </p>
+        </div>
+        <div class="news-item">
+          <div class="news-date">20/11/2025</div>
+          <h3>Chúc mừng ngày nhà giáo Việt Nam</h3>
+        </div>
+        <div class="news-item">
+          <div class="news-date">05/12/2025</div>
+          <h3>Đăng ký giải bóng đá</h3>
+          <p>Thông báo tuyển sinh Bóng đá...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Liên hệ -->
+    <section id="contact" class="container">
+      <h2>Liên hệ</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h4>Địa chỉ</h4>
+              <p>123 thôn Thanh Bình , Xã Chư sê, Tỉnh Gia Lai</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <h4>Email</h4>
+              <p>truongtrinhchuse@gmail.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h4>Điện thoại</h4>
+              <p>02696-554-440</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Gửi tin nhắn cho chúng tôi</h4>
+          <p>
+            Bạn có thể liên hệ trực tiếp qua các thông tin trên hoặc gửi email
+            để được hỗ trợ nhanh nhất.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2024 Trường THPT Trường Chinh. Tất cả quyền được bảo lưu. | Thiết
+        kế bởi Học sinh tổ 4 lớp 12 Nguyễn Thành Tín Trường Chinh Chư Sê
+      </p>
+    </footer>
+  </body>
+</html>
